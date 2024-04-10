@@ -1,0 +1,12 @@
+.block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .group {
+        @extend .block;
+        gap: 4px;
+        align-items: center;
+        height: 20px;
+    }
+}

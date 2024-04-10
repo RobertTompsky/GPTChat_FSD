@@ -1,0 +1,21 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+    padding: 42px 42px;
+    // background-color:  #101014;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+    h2 {
+        color: #333333;
+        align-self: center;
+        margin: 0;
+    }
+
+    button {
+        margin-top: 10px;
+    }
+}

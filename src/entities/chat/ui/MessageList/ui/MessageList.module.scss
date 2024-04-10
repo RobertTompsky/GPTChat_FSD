@@ -1,0 +1,13 @@
+.messageList {
+    height: 690px;
+    overflow-x: auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+
+    span {
+        color: white;
+    }
+}
