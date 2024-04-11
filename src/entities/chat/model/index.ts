@@ -1,2 +1,20 @@
-export { chatReducer, createChat, removeChat } from './slices/chatsSlice'
-export type {IMessage, IChat, IChatBody} from './types/index'
+export { MODELS } from './data'
+
+export {
+    chatReducer,
+    createChat,
+    setChatActive,
+    removeChat,
+    addMessage,
+    changeModel,
+    getChatMessages
+} from './slices/chatsSlice'
+
+export type {
+    IMessage,
+    IChat,
+    IChatBody,
+    GPTModel,
+    ModelObj
+} from './types/index'
+

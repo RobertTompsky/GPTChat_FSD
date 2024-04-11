@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styles from './Chat.module.scss'
 import { Button, TextArea } from '@/shared/ui/components';
-import { getChatCompletion } from '@/features/getChatCompletion';
 import { MessageList } from '../../MessageList';
-import { IMessage } from '@/entities/chat/model';
+import { IMessage, addMessage, getChatMessages } from '@/entities/chat/model';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks/redux';
+import { getChatCompletion } from '@/features/chat';
 
 export const Chat: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const chatMessages = useAppSelector(getChatMessages) as IMessage[]
+    const model = useAppSelector(state => state.chats.model)
     const [userMessage, setUserMessage] = useState<string>('')
-    const [messages, setMessages] = useState<IMessage[]>([])
     const [typing, setTyping] = useState<boolean>(false)
 
     const sendMessageToGPT =
@@ -18,44 +21,36 @@ export const Chat: React.FC = () => {
             e.preventDefault();
             if (!userMessage.trim()) return;
 
-            // Сохраняем введенное сообщение в локальное состояние
             const newMessage = {
                 message: userMessage,
                 sender: 'user' as 'user'
             };
+            dispatch(addMessage(newMessage))
 
-            setMessages(prevMessages => [
-                ...prevMessages,
-                newMessage
-            ]);
-
-            // Отправляем сохраненное сообщение на сервер
             try {
                 setTyping(true);
                 setUserMessage('');
 
                 const chatCompletion = await getChatCompletion(
-                    messages,
-                    newMessage
+                    chatMessages,
+                    newMessage,
+                    model
                 )
-
-                setMessages(prevMessages => [
-                    ...prevMessages,
-                    {
-                        message: chatCompletion.choices[0].message.content as string,
-                        sender: 'gpt'
-                    }
-                ]);
+                dispatch(addMessage({
+                    message: chatCompletion.choices[0].message.content as string,
+                    sender: 'gpt'
+                }))
 
                 setTyping(false);
             } catch (error) {
                 console.error('Ошибка', error);
             }
         };
+
     return (
         <div className={styles.chat}>
             <MessageList
-                messages={messages}
+                messages={chatMessages}
                 typing={typing}
             />
             <div className={styles.inputBlock}>

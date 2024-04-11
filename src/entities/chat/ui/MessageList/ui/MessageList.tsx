@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './MessageList.module.scss'
 import { MessageLoader } from '@/shared/ui/loaders';
-import { IMessage } from '@/entities/chat/model/types';
-import { Message } from '@/entities/chat/ui/Message';
+import { IMessage } from '@/entities/chat/model';
+import { Message } from '../../Message/ui/Message';
 
 interface MessageListProps {
     messages: IMessage[],
@@ -21,7 +21,9 @@ export const MessageList: React.FC<MessageListProps> = ({
                     key={index}
                 />
             ))}
-            {typing && <MessageLoader />}
+            {typing &&
+                <MessageLoader />
+            }
         </nav>
     );
 };
