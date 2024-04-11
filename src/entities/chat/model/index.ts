@@ -8,6 +8,7 @@ export {
     removeChat,
     addMessage,
     changeModel,
+    getChats,
     getChatMessages,
     getGPTTyping
 } from './slices/chatsSlice'

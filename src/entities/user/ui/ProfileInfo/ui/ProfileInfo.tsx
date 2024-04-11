@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const SignUp: React.FC = () => {
+export const ProfileInfo: React.FC = () => {
     return (
         <div>
-            SignUp
+            ProfileInfo
         </div>
     );
 };

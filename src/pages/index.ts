@@ -1,5 +1,4 @@
-export{ SignIn } from "./SignIn/SignIn";
-export{ SignUp } from "./SignUp/SignUp";
+export { SignIn } from "./SignIn/ui/SignIn";
 export { NotFound } from "./NotFound/NotFound";
 export { Profile } from "./Profile/Profile";
 export { About } from "./About/About";

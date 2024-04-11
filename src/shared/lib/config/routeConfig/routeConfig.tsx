@@ -1,16 +1,15 @@
-import { 
-    About, 
-    Main, 
-    Profile, 
-    SignIn, 
-    SignUp 
+import {
+    About,
+    Main,
+    Profile,
+    SignIn
 } from "@/pages";
-import { RouteObject } from "react-router-dom";
+import { Navigate, Outlet, RouteObject } from "react-router-dom";
+import { useAppSelector } from "../../hooks/redux";
 
 enum AppRoutes {
     // публичные 
     SIGN_IN = 'sign_in',
-    SIGN_UP = 'sign_up',
     // приватные
     MAIN = 'main',
     ABOUT = 'about',
@@ -19,7 +18,6 @@ enum AppRoutes {
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.SIGN_IN]: 'sign_in',
-    [AppRoutes.SIGN_UP]: 'sign_up',
 
     [AppRoutes.MAIN]: '/',
     [AppRoutes.ABOUT]: 'about',
@@ -31,10 +29,7 @@ export const RouteConfig: Record<AppRoutes, RouteObject> = {
         path: RoutePath.sign_in,
         Component: SignIn
     },
-    [AppRoutes.SIGN_UP]: {
-        path: RoutePath.sign_up,
-        Component: SignUp
-    },
+
 
     [AppRoutes.MAIN]: {
         index: true,
@@ -52,7 +47,7 @@ export const RouteConfig: Record<AppRoutes, RouteObject> = {
 
 export const PublicRoutes =
     Object.values(RouteConfig)
-        .slice(0, 2)
+        .slice(0, 1)
         .map(({
             Component,
             path,
@@ -63,7 +58,7 @@ export const PublicRoutes =
 
 export const ProtectedRoutes =
     Object.values(RouteConfig)
-        .slice(2)
+        .slice(1)
         .map(({ Component, path, index }) => {
             if (Component === Main) {
                 return {
@@ -77,3 +72,15 @@ export const ProtectedRoutes =
                 };
             }
         });
+
+
+export const Public: React.FC = () => {
+    return <Outlet />
+};
+
+export const Protected: React.FC = () => {
+    const isAuthed = useAppSelector(state => state.auth.isAuthenticated)
+    return isAuthed
+        ? <Outlet />
+        : <Navigate to={RoutePath.sign_in} replace />
+};

@@ -74,6 +74,9 @@ export const {
     setGPTTyping
 } = chatSlice.actions
 
+export const getChats
+    = (state: RootState) => state.chats.list
+
 export const getChatMessages
     = (state: RootState) => state.chats.list
         .find((chat) => chat.isActive === true)

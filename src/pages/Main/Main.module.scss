@@ -1,26 +1,5 @@
-.block {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    .group {
-        @extend .block;
-        gap: 4px;
-        align-items: center;
-        height: 20px;
-    }
-}
-
-.chat {
-    width: 100%;
+.mainPage {
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    .inputBlock {
-        width: 100%;
-        gap: 20px;
-        display: flex;
-        flex-direction: row;
-    }
 }

@@ -7,8 +7,10 @@ import { CurrentChat } from '@/widgets/CurrentChat';
 export const Main: React.FC = () => {
     return (
         <Container>
-            <ChatManagement />
-            <CurrentChat />
+            <div className={styles.mainPage}>
+                <ChatManagement />
+                <CurrentChat />
+            </div>
         </Container>
     );
 };

@@ -1,4 +1,4 @@
-import { IChat } from '@/entities/chat/model';
+import { IChat, getChats } from '@/entities/chat/model';
 import { useAppSelector } from '@/shared/lib/hooks/redux';
 import React from 'react';
 import styles from './CurrentChat.module.scss'
@@ -6,15 +6,14 @@ import { MessageList } from '@/entities/chat/ui/MessageList';
 import { SendMessage } from '@/features/chat';
 
 export const CurrentChat: React.FC = () => {
-    const chats: IChat[] = useAppSelector((state) => state.chats.list)
-
+    const chats: IChat[] = useAppSelector(getChats)
     return (
         <>
             {chats.map((chat) => chat.isActive && (
-                <div key={chat.id} className={styles.currentChat}>
+                <section key={chat.id} className={styles.currentChat}>
                     <MessageList />
                     <SendMessage />
-                </div>
+                </section>
             ))}
         </>
     );
