@@ -12,7 +12,8 @@ const initialState: InitialState = {
         id: 'gdsgdsdgs-34324-sdfs',
         name: 'Дефолтный чат',
         messages: [],
-        isActive: true
+        isActive: true,
+        isGPTTyping: false
     }],
     model: 'gpt-3.5-turbo-0125'
 }
@@ -29,6 +30,9 @@ const chatSlice = createSlice({
 
             state.list.push(action.payload)
         },
+        removeChat: (state, action: PayloadAction<string>) => {
+            state.list = state.list.filter(chat => chat.id !== action.payload);
+        },
         setChatActive: (state, action: PayloadAction<string>) => {
             const currentChat = state.list.find((chat) => chat.isActive === true)
             if (currentChat) {
@@ -40,8 +44,11 @@ const chatSlice = createSlice({
                 targetChat.isActive = true;
             }
         },
-        removeChat: (state, action: PayloadAction<string>) => {
-            state.list = state.list.filter(chat => chat.id !== action.payload);
+        setGPTTyping: (state, action: PayloadAction<boolean>) => {
+            const currentChat = state.list.find((chat) => chat.isActive === true)
+            if (currentChat) {
+                currentChat.isGPTTyping = action.payload
+            }
         },
         addMessage: (state, action: PayloadAction<IMessage>) => {
             const currentChat = state.list.find((chat) => chat.isActive === true)
@@ -63,10 +70,16 @@ export const {
     setChatActive,
     removeChat,
     addMessage,
-    changeModel
+    changeModel,
+    setGPTTyping
 } = chatSlice.actions
 
 export const getChatMessages
     = (state: RootState) => state.chats.list
         .find((chat) => chat.isActive === true)
         ?.messages
+
+export const getGPTTyping
+    = (state: RootState) => state.chats.list
+        .find((chat) => chat.isActive === true)
+        ?.isGPTTyping

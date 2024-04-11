@@ -13,7 +13,8 @@ export const CreateChat: React.FC = () => {
         id: '',
         name: '',
         messages: [],
-        isActive: false
+        isActive: false,
+        isGPTTyping: false
     })
     
     const handleCreateChat = (): void => {
@@ -21,7 +22,8 @@ export const CreateChat: React.FC = () => {
             id: uuidv4(),
             name: chat.name,
             messages: [],
-            isActive: true
+            isActive: true,
+            isGPTTyping: false
         }))
         setChat({ ...chat, name: '' })
     }

@@ -4,10 +4,12 @@ export {
     chatReducer,
     createChat,
     setChatActive,
+    setGPTTyping,
     removeChat,
     addMessage,
     changeModel,
-    getChatMessages
+    getChatMessages,
+    getGPTTyping
 } from './slices/chatsSlice'
 
 export type {

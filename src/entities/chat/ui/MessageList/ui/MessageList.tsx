@@ -1,27 +1,26 @@
 import React from 'react';
 import styles from './MessageList.module.scss'
 import { MessageLoader } from '@/shared/ui/loaders';
-import { IMessage } from '@/entities/chat/model';
-import { Message } from '../../Message/ui/Message';
+import { 
+    IMessage, 
+    getChatMessages, 
+    getGPTTyping 
+} from '@/entities/chat/model';
+import { useAppSelector } from '@/shared/lib/hooks/redux';
+import { Message } from '../../Message';
 
-interface MessageListProps {
-    messages: IMessage[],
-    typing: boolean
-}
-
-export const MessageList: React.FC<MessageListProps> = ({
-    messages,
-    typing
-}) => {
+export const MessageList: React.FC = () => {
+    const chatMessages = useAppSelector(getChatMessages) as IMessage[]
+    const isGPTTyping = useAppSelector(getGPTTyping) as boolean
     return (
         <nav className={styles.messageList}>
-            {messages.map((message, index) => (
+            {chatMessages.map((message, index) => (
                 <Message
                     message={message}
                     key={index}
                 />
             ))}
-            {typing &&
+            {isGPTTyping &&
                 <MessageLoader />
             }
         </nav>

@@ -1,13 +1,15 @@
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks/redux';
 import { Button, TextArea } from '@/shared/ui/components';
 import React, { useState } from 'react';
-import { getChatCompletion } from '../../getChatCompletion';
+import { IMessage, addMessage, getChatMessages, setGPTTyping } from '@/entities/chat/model';
+import styles from './SendMessage.module.scss'
+import { getChatCompletion } from '@/entities/chat/api';
 
 export const SendMessage: React.FC = () => {
     const dispatch = useAppDispatch()
     const model = useAppSelector(state => state.chats.model)
+    const chatMessages = useAppSelector(getChatMessages) as IMessage[]
     const [userMessage, setUserMessage] = useState<string>('')
-    const [typing, setTyping] = useState<boolean>(false)
 
     const sendMessageToGPT =
         async (
@@ -24,7 +26,7 @@ export const SendMessage: React.FC = () => {
             dispatch(addMessage(newMessage))
 
             try {
-                setTyping(true);
+                dispatch(setGPTTyping(true));
                 setUserMessage('');
 
                 const chatCompletion = await getChatCompletion(
@@ -37,7 +39,8 @@ export const SendMessage: React.FC = () => {
                     sender: 'gpt'
                 }))
 
-                setTyping(false);
+                dispatch(setGPTTyping(false));
+                
             } catch (error) {
                 console.error('Ошибка', error);
             }
