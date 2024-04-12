@@ -22,16 +22,7 @@
 }
 
 .default {
-    background: #3498DB;
-
-    &:hover {
-        box-shadow: 0 0 0 0 #fff, 0 0 0 1px  #3498DB;
-    }
-
-    
-    &:active{
-        box-shadow: 0 0 0 0 #fff, 0 0 0 3px  #3498DB;
-    }
+    background: #FFA500;
 }
 
 .approve {

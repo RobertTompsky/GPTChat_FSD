@@ -30,8 +30,9 @@ const chatSlice = createSlice({
 
             state.list.push(action.payload)
         },
-        removeChat: (state, action: PayloadAction<string>) => {
-            state.list = state.list.filter(chat => chat.id !== action.payload);
+        removeChat: (state) => {
+            const newList = state.list.filter(chat => chat.isActive !== true);
+            state.list = newList
         },
         setChatActive: (state, action: PayloadAction<string>) => {
             const currentChat = state.list.find((chat) => chat.isActive === true)

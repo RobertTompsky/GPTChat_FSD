@@ -3,8 +3,8 @@ import styles from './Header.module.scss'
 import { Container } from '@/shared/ui/layout';
 import { Link } from 'react-router-dom';
 import { RoutePath } from '@/app/router';
-import { Button } from '@/shared/ui/components';
 import { useAppSelector } from '@/shared/lib/hooks/redux';
+import { LogOut } from '@/features/user';
 
 export const Header: React.FC = () => {
     const isAuthed = useAppSelector(state => state.auth.isAuthenticated)
@@ -25,11 +25,7 @@ export const Header: React.FC = () => {
                                 className={styles.header_link}
                                 children='Профиль'
                             />
-                            <Button
-                                children='Выйти'
-                                btnSize='small'
-                                variant='delete'
-                            />
+                            <LogOut />
                         </nav>
                     }
                 </div>

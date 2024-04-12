@@ -1,7 +1,7 @@
-import LogIn from '@/features/user/logIn/ui/LogIn';
 import { Container } from '@/shared/ui/layout';
 import React from 'react';
 import styles from './SignIn.module.scss'
+import { LogIn } from '@/features/user/logIn';
 
 export const SignIn: React.FC = () => {
     return (

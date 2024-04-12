@@ -18,6 +18,8 @@ export const CreateChat: React.FC = () => {
     })
     
     const handleCreateChat = (): void => {
+        if (!chat.name.trim()) return;
+        
         dispatch(createChat({
             id: uuidv4(),
             name: chat.name,

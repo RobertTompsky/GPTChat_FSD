@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const handleValidateData = <T>(
+export const handleValidateData = async <T>(
     data: T,
     schema: z.AnyZodObject | z.ZodOptional<z.AnyZodObject>,
     setErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>
@@ -8,7 +8,7 @@ export const handleValidateData = <T>(
     const initialState: { [key: string]: string } = {}
     setErrors(initialState);
     try {
-        schema.parse(data)
+        await schema.parseAsync(data)
     } catch (error) {
         if (error instanceof z.ZodError) {
             const validationErrors: { [key: string]: string } = {};

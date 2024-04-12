@@ -1,56 +1,76 @@
-import React from 'react';
 import styles from './FormField.module.scss'
-import { Input, Select, TextArea } from '..';
+import { 
+    FieldError, 
+    FieldValues, 
+    Path, 
+    UseFormRegister 
+} from 'react-hook-form';
 
 type AdditionalSelectProps = {
     options: { value: string | number; title: string | number }[];
     defaultOptionTitle: string;
 };
 
-type FormFieldProps<T extends 'input' | 'select' | 'textarea'> = {
-    title: string;
-    fieldType: T;
-    name: string;
-    value: string | number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
-    zodError: string | undefined;
-    placeholder?: string
-} & (T extends 'select' ? AdditionalSelectProps : {});
+export type IFormField<
+    T extends FieldValues, // Это гарантирует, что T всегда будет соответствовать FieldValues или его подтипу
+    F extends 'input' | 'select' | 'textarea'
+> = {
+    title: string,
+    fieldType: F
+    dataType?: string;
+    placeholder?: string;
+    name: Path<T>; // Изменено с ValidFieldNames на keyof T для прямой совместимости с типом T
+    register: UseFormRegister<T>;
+    error: FieldError | undefined;
+    valueAsNumber?: boolean;
+} & (F extends 'select' ? AdditionalSelectProps : {});
 
-export const FormField: React.FC<FormFieldProps<'input' | 'select' | 'textarea'>> = (props) => {
-    const { title, fieldType, placeholder, name, value, onChange, zodError, ...rest } = props
-    return (
-        <div className={styles.formField}>
-            <label htmlFor={name}>{title}</label>
-            {fieldType === 'textarea' && (
-                <TextArea
-                    id={name}
-                    name={name}
-                    value={value}
-                    onChange={onChange as (e: React.ChangeEvent<HTMLTextAreaElement>) => void}
+
+export const FormField
+    = <T extends FieldValues>({
+        title,
+        fieldType,
+        placeholder,
+        name,
+        dataType,
+        register,
+        error,
+        valueAsNumber,
+        ...rest
+    }: IFormField<T, "input" | "select" | "textarea">) => {
+
+        return (
+            <div className={styles.formField}>
+                <label htmlFor={name}>{title}</label>
+
+                {fieldType === 'input' && (
+                    <input
+                        type={dataType}
+                        placeholder={placeholder}
+                        {...register(name, { valueAsNumber })}
+                    />
+                )}
+
+                {fieldType === 'textarea' && (
+                    <textarea 
                     placeholder={placeholder}
-                />
-            )}
-            {fieldType === 'select' && (
-                <Select
-                    options={(rest as AdditionalSelectProps).options}
-                    defaultOptionTitle={(rest as AdditionalSelectProps).defaultOptionTitle}
-                    id={name}
-                    name={name}
-                    value={value}
-                    onChange={onChange as (e: React.ChangeEvent<HTMLSelectElement>) => void}
-                />
-            )}
-            {fieldType === 'input' && (
-                <Input
-                    name={name}
-                    id={name}
-                    value={value}
-                    onChange={onChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
-                    placeholder={placeholder}
-                />
-            )}
-            {zodError && <span>{zodError}</span>}
-        </div>
-    );
-};
+                    {...register(name, { valueAsNumber })}
+                    />
+                )}
+
+                {fieldType === 'select' && (
+                    <select {...register(name, { valueAsNumber })}>
+                        <option disabled value={''}>
+                            {(rest as AdditionalSelectProps).defaultOptionTitle}
+                        </option>
+                        {(rest as AdditionalSelectProps).options.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.title}
+                            </option>
+                        ))}
+                    </select>
+                )}
+                {error && <span>{error.message}</span>}
+            </div>
+        );
+    };

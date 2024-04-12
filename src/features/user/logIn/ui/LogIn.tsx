@@ -1,55 +1,63 @@
 import { RoutePath } from '@/app/router';
 import { IUser, logIn, userSchema } from '@/entities/user/model';
-import { handleInputChange } from '@/shared/lib/functions';
-import { handleValidateData } from '@/shared/lib/functions/handleValidateData';
 import { useAppDispatch } from '@/shared/lib/hooks/redux';
 import { Button, Form, FormField } from '@/shared/ui/components';
-import React, { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 export const LogIn: React.FC = () => {
-    const [user, setUser] = useState<IUser>({
-        name: '',
-        password: ''
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<IUser>({
+        resolver: zodResolver(userSchema)
     })
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-        e.preventDefault()
-
+    const onSubmit = async (data: IUser) => {
+        console.log(data)
         try {
-            handleValidateData(user, userSchema, setErrors)
-            dispatch(logIn(user))
+            dispatch(logIn(data))
             navigate(`${RoutePath.main}`)
         } catch (error) {
-            console.error(error)
+            console.log(error)
         }
     }
 
     return (
-        <Form title='Вход' onSubmit={handleSubmit} width='300px'>
+        <Form
+            title='Вход'
+            onSubmit={handleSubmit(onSubmit)}
+            width='300px'
+            >
             <FormField
-                title='Логин'
-                name='name'
-                fieldType='input'
-                value={user.name}
-                zodError={errors.name}
-                onChange={(e) => handleInputChange(e, setUser)}
+                title="Имя пользователя"
+                fieldType="input"
+                dataType="text"
+                placeholder="Введите ваше имя"
+                name="name"
+                register={register}
+                error={errors.name}
             />
             <FormField
-                title='Пароль'
-                name='password'
-                fieldType='input'
-                value={user.password}
-                zodError={errors.password}
-                onChange={(e) => handleInputChange(e, setUser)}
+                title="Пароль"
+                fieldType="input"
+                dataType="password"
+                placeholder="Введите пароль"
+                name="password"
+                register={register}
+                error={errors.password}
             />
-            <Button children='Ок' variant='approve' btnSize='small'/>
+            <Button
+                children='Ок'
+                variant='approve'
+                btnSize='small'
+            />
         </Form>
     );
 };
-
-export default LogIn;
