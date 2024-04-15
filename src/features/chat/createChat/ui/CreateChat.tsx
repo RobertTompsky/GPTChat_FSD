@@ -1,10 +1,10 @@
 import { Button, Input } from '@/shared/ui/components';
 import React, { useState } from 'react';
 import styles from './CreateChat.module.scss'
-import { useAppDispatch } from '@/shared/lib/hooks/redux';
 import { IChat, createChat } from '@/entities/chat/model';
 import { handleInputChange } from '@/shared/lib/functions';
 import { v4 as uuidv4 } from 'uuid';
+import { useAppDispatch } from '@/shared/lib/hooks';
 
 export const CreateChat: React.FC = () => {
     const dispatch = useAppDispatch()

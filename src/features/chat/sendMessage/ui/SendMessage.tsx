@@ -1,9 +1,14 @@
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks/redux';
 import { Button, TextArea } from '@/shared/ui/components';
 import React, { useState } from 'react';
-import { IMessage, addMessage, getChatMessages, setGPTTyping } from '@/entities/chat/model';
+import { 
+    IMessage, 
+    addMessage, 
+    getChatMessages, 
+    setGPTTyping 
+} from '@/entities/chat/model';
 import styles from './SendMessage.module.scss'
 import { getChatCompletion } from '@/entities/chat/api';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 
 export const SendMessage: React.FC = () => {
     const dispatch = useAppDispatch()

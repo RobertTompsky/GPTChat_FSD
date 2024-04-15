@@ -15,7 +15,6 @@ export type IFormField<
     T extends FieldValues, // Это гарантирует, что T всегда будет соответствовать FieldValues или его подтипу
     F extends 'input' | 'select' | 'textarea'
 > = {
-    title: string,
     fieldType: F
     dataType?: string;
     placeholder?: string;
@@ -28,7 +27,6 @@ export type IFormField<
 
 export const FormField
     = <T extends FieldValues>({
-        title,
         fieldType,
         placeholder,
         name,
@@ -41,7 +39,6 @@ export const FormField
 
         return (
             <div className={styles.formField}>
-                <label htmlFor={name}>{title}</label>
 
                 {fieldType === 'input' && (
                     <input

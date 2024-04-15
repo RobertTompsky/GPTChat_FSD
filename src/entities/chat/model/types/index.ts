@@ -13,7 +13,7 @@ export type IChat = {
 
 export type IChatBody = Omit<IChat, 'id'>
 
-export type GPTModel = 'gpt-4-turbo-preview' | 'gpt-3.5-turbo-0125'
+export type GPTModel = 'gpt-4-turbo' | 'gpt-3.5-turbo-0125'
 
 export type ModelObj = {
     title: string,

@@ -1,11 +1,15 @@
 import { getChats, removeChat } from '@/entities/chat/model';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks';
 import { Button } from '@/shared/ui/components';
 import React from 'react';
 
 export const DeleteChat: React.FC = () => {
     const chats = useAppSelector(getChats)
     const dispatch = useAppDispatch()
+
+    const handleDeleteChat = (): void => {
+        dispatch(removeChat())
+    }
     
     return (
         <>
@@ -14,7 +18,7 @@ export const DeleteChat: React.FC = () => {
                     variant='delete'
                     children='Удалить'
                     btnSize='small'
-                    onClick={() => dispatch(removeChat())}
+                    onClick={handleDeleteChat}
                 />
             }
         </>

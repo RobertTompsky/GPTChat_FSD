@@ -8,6 +8,7 @@ export {
     removeChat,
     addMessage,
     changeModel,
+    searchMessage,
     getChats,
     getChatMessages,
     getGPTTyping

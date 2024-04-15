@@ -1,1 +1,1 @@
-export { getChatCompletion } from "./getChatCompletion";
+export { getChatCompletion } from "./getChatCompletion/getChatCompletion";

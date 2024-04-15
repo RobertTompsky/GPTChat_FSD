@@ -1,5 +1,5 @@
 import { IChat, setChatActive } from '@/entities/chat/model';
-import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks/redux';
+import { useAppSelector, useAppDispatch } from '@/shared/lib/hooks';
 import { Select } from '@/shared/ui/components';
 import React from 'react';
 
