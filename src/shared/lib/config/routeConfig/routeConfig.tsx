@@ -4,8 +4,12 @@ import {
     Profile,
     SignIn
 } from "@/pages";
-import { Navigate, Outlet, RouteObject } from "react-router-dom";
-import { useAppSelector } from "../../hooks/redux";
+import { 
+    Navigate, 
+    Outlet, 
+    RouteObject 
+} from "react-router-dom";
+import { useAppSelector } from "../../hooks";
 
 enum AppRoutes {
     // публичные 
@@ -40,7 +44,7 @@ export const RouteConfig: Record<AppRoutes, RouteObject> = {
         Component: About
     },
     [AppRoutes.PROFILE]: {
-        path: `${RoutePath.profile}/:id`,
+        path: RoutePath.profile,
         Component: Profile
     }
 }

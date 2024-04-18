@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
         <div className={styles.header}>
             <Container>
                 <div className={styles.header_content}>
-                    <h2>NapasGPT</h2>
+                    <h2 className={styles.header_title}>NapasGPT</h2>
                     {isAuthed &&
                         <nav className={styles.header_nav}>
                             <Link
@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
                                 children='Чат'
                             />
                             <Link
-                                to={RoutePath.about}
+                                to={RoutePath.profile}
                                 className={styles.header_link}
                                 children='Профиль'
                             />

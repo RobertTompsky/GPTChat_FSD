@@ -2,7 +2,7 @@ import {
     GPTModel, 
     IChat, 
     IMessage 
-} from "@/entities/chat/model/types";
+} from "@/entities/chat/model/types/types";
 import { RootState } from "@/shared/lib/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 

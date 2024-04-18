@@ -4,7 +4,7 @@ import styles from './Message.module.scss'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import ReactMarkdown from 'react-markdown';
-import { IMessage } from '@/entities/chat/model/types';
+import { IMessage } from '@/entities/chat/model/types/types';
 
 interface MessageProps {
     message: IMessage

@@ -1,4 +1,4 @@
-import { ModelObj } from "../types";
+import { ModelObj } from "../types/types";
 
 export const MODELS: ModelObj[] = [
     {

@@ -20,5 +20,5 @@ export type {
     IChatBody,
     GPTModel,
     ModelObj
-} from './types/index'
+} from './types/types'
 

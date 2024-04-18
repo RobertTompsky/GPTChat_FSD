@@ -31,7 +31,7 @@ export const CreateChat: React.FC = () => {
     }
 
     return (
-        <div className={styles.group}>
+        <div className={styles.createChat}>
             <Input
                 placeholder='Создать чат'
                 value={chat.name}

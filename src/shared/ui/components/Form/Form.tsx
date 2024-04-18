@@ -23,7 +23,9 @@ export const Form: React.FC<FormProps> = ({
             style={{ width }}
             className={formClass}
             onSubmit={onSubmit}>
-            <h2>{title}</h2>
+            <h2 className={styles.form_title}>
+                {title}
+            </h2>
             {children}
         </form>
     );

@@ -1,12 +1,6 @@
 .header {
-    background-color: #121212;
-    width: 100%;
     display: flex;
-
-    h2 {
-        color: white;
-        margin: 0;
-    }
+    height: var(--header-height);
 
     &_content {
         height: 100%;
@@ -17,6 +11,7 @@
 
         .header_nav {
             display: flex;
+            justify-content: space-between;
             flex-direction: row;
             align-items: center;
             gap: 30px;
@@ -25,7 +20,19 @@
 
     &_link {
         text-decoration: none;
-        color: white;
+        color: var(--color-primary);
         font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .header {
+        &_title {
+            display: none;
+        }
+
+        &_nav {
+            width: 100%;
+        }
     }
 }
