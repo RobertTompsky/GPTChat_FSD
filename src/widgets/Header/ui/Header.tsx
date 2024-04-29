@@ -1,31 +1,73 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './Header.module.scss'
 import { Container } from '@/shared/ui/layout';
-import { Link } from 'react-router-dom';
 import { RoutePath } from '@/app/router';
 import { useAppSelector } from '@/shared/lib/hooks/redux';
 import { LogOut } from '@/features/user';
+import ProfileLogo from '@/assets/profile.svg'
+import { AppLink, Dropdown } from '@/shared/ui/components';
 
 export const Header: React.FC = () => {
-    const isAuthed = useAppSelector(state => state.auth.isAuthenticated)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
+    const isAuthed
+        = useAppSelector(state => state.auth.isAuthenticated)
+
     return (
         <div className={styles.header}>
             <Container>
                 <div className={styles.header_content}>
-                    <h2 className={styles.header_title}>NapasGPT</h2>
+
+                    <h2 className={styles.header_title}>
+                        NapasGPT
+                    </h2>
+
                     {isAuthed &&
                         <nav className={styles.header_nav}>
-                            <Link
+                            <AppLink
                                 to={RoutePath.main}
-                                className={styles.header_link}
                                 children='Чат'
+                                fontSize='medium'
                             />
-                            <Link
+                            <AppLink
                                 to={RoutePath.profile}
-                                className={styles.header_link}
-                                children='Профиль'
+                                children='База данных'
+                                fontSize='medium'
                             />
-                            <LogOut />
+
+                            <div className='header_profile'>
+                                <img
+                                    src={ProfileLogo}
+                                    className={styles.header_profile_image}
+                                    onClick={() => setIsOpen(prev => !prev)}
+                                />
+                                <Dropdown
+                                    isOpen={isOpen}
+                                    setIsOpen={setIsOpen}
+                                >
+                                    <nav className={styles.dropdown_list}>
+                                        <AppLink
+                                            to={RoutePath.profile}
+                                            children='Профиль'
+                                            fontSize='small'
+                                            onClick={() => setIsOpen(false)}
+                                        />
+                                        <AppLink
+                                            to={RoutePath.profile}
+                                            children='Избранное'
+                                            fontSize='small'
+                                            onClick={() => setIsOpen(false)}
+                                        />
+                                        <AppLink
+                                            to={RoutePath.profile}
+                                            children='Настройки'
+                                            fontSize='small'
+                                            onClick={() => setIsOpen(false)}
+                                        />
+                                    </nav>
+                                    <LogOut setIsOpen={setIsOpen} />
+                                </Dropdown>
+                            </div>
                         </nav>
                     }
                 </div>

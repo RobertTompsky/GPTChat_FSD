@@ -6,8 +6,8 @@ import {
     getChatMessages,
     getGPTTyping
 } from '@/entities/chat/model';
-import { useAppSelector } from '@/shared/lib/hooks/redux';
 import { Message } from '../../Message';
+import { useAppSelector } from '@/shared/lib/hooks';
 
 export const MessageList: React.FC = () => {
     const chatMessages = useAppSelector(getChatMessages) as IMessage[]
@@ -15,9 +15,10 @@ export const MessageList: React.FC = () => {
     const query = useAppSelector(state => state.chats.query)
 
     const filteredMessages = chatMessages
-        .filter((message) => message.message.toLowerCase()
+        .filter((message) => message.message
+            .toLowerCase()
             .includes(query.toLowerCase()))
-    
+
     return (
         <nav className={styles.messageList}>
             {filteredMessages.map((message, index) => (
