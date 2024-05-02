@@ -69,6 +69,7 @@ export const SendMessage: React.FC = () => {
                 children='Отправить'
                 variant='approve'
                 onClick={sendMessageToGPT}
+                btnSize='small'
             />
         </div>
     );

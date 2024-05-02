@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Header.module.scss'
 import { Container } from '@/shared/ui/layout';
 import { RoutePath } from '@/app/router';
